@@ -18,6 +18,14 @@ func proc_stf_provider( o ProcOptions, curIP string ) {
     if o.config.Stf.Location != "" {
         location = o.config.Stf.Location
     }
+
+    secure := o.config.FrameServer.Secure
+    var storageUrl string
+    if secure {
+        storageUrl = "https://%s"
+    } else {
+        storageUrl = "http://%s"
+    }
             
     o.startFields = log.Fields {
         "client_ip":       curIP,
@@ -33,7 +41,7 @@ func proc_stf_provider( o ProcOptions, curIP string ) {
         "--name"         , location,
         "--connect-sub"  , fmt.Sprintf("tcp://%s:7250", serverIP),
         "--connect-push" , fmt.Sprintf("tcp://%s:7270", serverIP),
-        "--storage-url"  , fmt.Sprintf("https://%s", serverHostname),
+        "--storage-url"  , fmt.Sprintf(storageUrl, serverHostname),
         "--public-ip"    , curIP,
         "--min-port=7400",
         "--max-port=7700",

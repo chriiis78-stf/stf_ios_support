@@ -544,6 +544,8 @@ func event_loop(
                     } else if videoMethod == "ivp" {
                         proc_h264_to_jpeg( o )
                         proc_ios_video_pull( o )
+                    } else {
+                        proc_ios_video_screenshot( o, tunName )
                     }
                 }
             }
