@@ -242,9 +242,7 @@ func main() {
         if videoMethod == "ivp" {
             ivp_enable( o )
         }
-                
         proc_ios_video_stream( o, "none" )
-        
         if videoMethod == "avfoundation" {
             proc_ivf( o )
         } else if videoMethod == "ivp" {
@@ -537,16 +535,16 @@ func event_loop(
                 o.config = devd.confDup
                 
                 if o.config.Video.Enabled {
+
                     proc_ios_video_stream( o, tunName )
-                    
                     if videoMethod == "avfoundation" {
                         proc_ivf( o )
                     } else if videoMethod == "ivp" {
                         proc_h264_to_jpeg( o )
                         proc_ios_video_pull( o )
-                    } else {
-                        proc_ios_video_screenshot( o, tunName )
                     }
+                } else {
+                    proc_ios_video_screenshot( o, tunName )
                 }
             }
             if devEvent.action == 1 { // device disconnect
