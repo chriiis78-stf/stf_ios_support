@@ -11,6 +11,7 @@ import (
 
 type Config struct {
     WdaFolder  string        `json:"wda_folder"`
+    BundleidCompanion string `json:"bundleid_companion"`
     Network    NetConfig     `json:"network"`
     Stf        STFConfig     `json:"stf"`
     Video      VideoConfig   `json:"video"`
@@ -139,6 +140,7 @@ func read_config( configPath string ) *Config {
         defaultJson := `{
           "wda_folder": "./bin/wda",
           "xcode_dev_team_id": "",
+          "bundleid_companion": "com.pf.PandaFarmCompanion",
           "network": {
             "coordinator_port": 8027,
             "video_ports":     "8000-8005",

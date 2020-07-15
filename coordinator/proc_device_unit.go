@@ -53,6 +53,7 @@ func proc_device_ios_unit( o ProcOptions, uuid string, curIP string) {
         "--click-width"          , strconv.Itoa( o.devd.clickWidth ),
         "--click-height"         , strconv.Itoa( o.devd.clickHeight ),
         "--click-scale"          , strconv.Itoa( o.devd.clickScale ),
+        "--bundleid-companion"   , o.config.BundleidCompanion,
     }
     o.startFields = log.Fields {
         "server_ip": o.config.Stf.Ip,
@@ -68,6 +69,7 @@ func proc_device_ios_unit( o ProcOptions, uuid string, curIP string) {
         "clickWidth": o.devd.clickWidth,
         "clickHeight": o.devd.clickHeight,
         "frame_server": frameServer,
+        "bundleidCompanion": o.config.BundleidCompanion,
     }
     
     devd := o.devd

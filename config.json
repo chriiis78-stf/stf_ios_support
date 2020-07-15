@@ -1,5 +1,6 @@
 {
   "xcode_dev_team_id": "XXXXXXXXXX",
+  "bundleid_companion": "com.pf.PandaFarmCompanion",
   "stf": {
     "ip": "192.168.1.77",
     "hostname": "192.168.1.77"
