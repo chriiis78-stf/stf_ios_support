@@ -690,6 +690,7 @@ func event_loop(
                     "type":     "wdaproxy_fail",
                     "dev_uuid": uuid,
                 } ).Error("WDAProxy failed to start")
+                devd.wdaStarted = false
             }
                         
             if devd != nil && !devd.wdaStarted {
