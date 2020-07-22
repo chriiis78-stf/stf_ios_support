@@ -8,7 +8,7 @@ import (
     "os"
     "os/exec"
     "path/filepath"
-    //"strconv"
+    "strconv"
     "strings"
     "sync"
     "time"
@@ -528,9 +528,9 @@ func event_loop(
                     "dev_uuid": censor_uuid( uuid ),                
                 } ).Info("Device connected")
     
-                if videoMethod == "ivp" {
-                    ivp_enable( o )
-                }
+                // if videoMethod == "ivp" {
+                //     ivp_enable( o )
+                // }
                 
                 o.config = devd.confDup
                 
@@ -611,7 +611,8 @@ func event_loop(
                     uuid: uuid,
                 }              
               
-                wdaBase := "http://127.0.0.1:8100"
+                wdaBase := "http://127.0.0.1:" + strconv.Itoa(wdaPort)
+                fmt.Printf("devName %s wdaBase %s\n", devName, wdaBase)
                 var sessionId string
                 try := 0
                 for {
@@ -626,14 +627,17 @@ func event_loop(
                         fmt.Printf("Status response: %s\n", str )
                         root, _ := uj.Parse( []byte( str ) )
                         //root.Dump()
+                        fmt.Printf("Try get sessionId\n")
                         sessionNode := root.Get("sessionId")
                         if sessionNode == nil {
+                            fmt.Printf("sessionNode Nil, open settings app\n")
                             wda := NewWDACaller( wdaBase )
                             sessionId = wda.create_session( "com.apple.Preferences" )
                         } else {
+                            fmt.Printf("sessionNode exist\n")
                             sessionId = sessionNode.String()
                         }
-                        
+                        fmt.Printf("session got %s\n", sessionId)
                         break
                     }
                     //fmt.Printf("trying again to getting wda session\n")
