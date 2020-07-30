@@ -10,7 +10,7 @@ func proc_ios_video_screenshot( o ProcOptions, tunName string ) {
     devd := o.devd.dup()
     udid := devd.uuid
     port := o.config.MirrorFeedPort
-    wdaport := o.devd.wdaPort
+    wdaport := o.config.WDAProxyPort
     
     nanoIn := o.config.DecodeInPort
     
