@@ -127,8 +127,8 @@ wda: bin/wda/build_info.json
 
 wdadirectory:
 #@if [ -e bin/wda ]; then rm -rf bin/wda; fi;
-	@mkdir -p bin/wda/Debug-iphoneos
-	ln -s ../../repos/wdaproxy/web bin/wda/web
+	@if [ -e bin/wda/Debug-iphoneos ]; then mkdir -p bin/wda/Debug-iphoneos; fi;
+	@if [ -f bin/wda/web ]; then ln -s ../../repos/wdaproxy/web bin/wda/web; fi;
 
 wdaclone: repos/WebDriverAgent/WebDriverAgent.xcodeproj
 

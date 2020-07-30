@@ -528,9 +528,9 @@ func event_loop(
                     "dev_uuid": censor_uuid( uuid ),                
                 } ).Info("Device connected")
     
-                // if videoMethod == "ivp" {
-                //     ivp_enable( o )
-                // }
+                if videoMethod == "ivp" {
+                    ivp_enable( o )
+                }
                 
                 o.config = devd.confDup
                 
@@ -745,7 +745,7 @@ func ivp_enable( o ProcOptions ) {
             "-udid", uuid ).Wait()
         */
         
-        aio_reset_media_services( o )
+        //aio_reset_media_services( o )
         
         log.WithFields( log.Fields{
             "type":     "enabling",

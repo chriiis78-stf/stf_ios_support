@@ -10,6 +10,7 @@ func proc_ios_video_screenshot( o ProcOptions, tunName string ) {
     devd := o.devd.dup()
     udid := devd.uuid
     port := o.config.MirrorFeedPort
+    wdaport := o.devd.wdaPort
     
     nanoIn := o.config.DecodeInPort
     
@@ -27,6 +28,7 @@ func proc_ios_video_screenshot( o ProcOptions, tunName string ) {
     o.args = []string {
         "-stream",
         "--port", strconv.Itoa( port ),
+        "-wdaport", strconv.Itoa( wdaport ),
         "-udid", udid,
         "-interface", tunName,
         "-pullSpec", inSpec,
