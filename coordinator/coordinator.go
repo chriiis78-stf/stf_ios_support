@@ -687,13 +687,19 @@ func event_loop(
                     devd.heartbeatChan = coro_heartbeat( uuid, pubEventCh )
                 }
                 
-                continue_dev_start( o, curIP )
+                continue_dev_start( o, curIP, pubEventCh )
             }
             if devEvent.action == 5 { // WDA Startup failed
                 log.WithFields( log.Fields{
                     "type":     "wdaproxy_fail",
                     "dev_uuid": uuid,
                 } ).Error("WDAProxy failed to start")
+                pubEventCh <- PubEvent{
+                    action: 1, // disconnected
+                    uuid: uuid,
+                }
+                devd.heartbeatChan <- true
+                devd.heartbeatChan = nil
                 devd.wdaStarted = false
             }
                         
@@ -766,7 +772,7 @@ func censor_uuid( uuid string ) (string) {
     return "***" + uuid[len(uuid)-4:]
 }
 
-func continue_dev_start( o ProcOptions, curIP string ) {
+func continue_dev_start( o ProcOptions, curIP string, pubEventCh chan<- PubEvent ) {
     uuid := o.devd.uuid
     
     if o.config.Video.Enabled && o.config.Video.UseVnc {
@@ -776,5 +782,10 @@ func continue_dev_start( o ProcOptions, curIP string ) {
     if !o.devd.devUnitStarted {
         o.devd.devUnitStarted = true
         proc_device_ios_unit( o, uuid, curIP )
+    } else {
+        pubEventCh <- PubEvent{
+            action: 4, // ready
+            uuid: uuid,
+        }
     }
 }

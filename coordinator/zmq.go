@@ -66,6 +66,8 @@ func coro_zmqPub( pubEventCh <-chan PubEvent ) {
                 test.Type = "disconnect"
             } else if pubEvent.action == 3 {
                 test.Type = "present"
+            } else if pubEvent.action == 4 {
+                test.Type = "ready"
             }
 
             // publish a zmq message of the DevEvent
