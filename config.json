@@ -14,8 +14,8 @@
   },
   "frameserver":{
     "secure": true,
-    "cert": "./server/cert/server.crt",
-    "key": "./server/cert/server.key",
+    "cert": "../certificates/server.crt",
+    "key": "../certificates/server.key",
     "width": 0,
     "height": 0
   },
